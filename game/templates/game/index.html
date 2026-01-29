@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MJSEC Recruit</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'game/css/suika.css' %}"
+    />
+  </head>
+  <body>
+    <main class="game-wrapper">
+      <header class="game-header">
+        <div>
+          <h1>MJSEC Recruit - Suika Challenge</h1>
+          <p>
+            클릭으로 과일을 떨어뜨려 합치세요. 목표 점수 달성 시, 신입부원 오픈채팅방 코드를 얻게됩니다!!
+          </p>
+          <p class="boost-label">
+            점수 부스트:
+            <strong>{{ score_boost }}x</strong>
+          </p>
+        </div>
+      </header>
+
+      <section class="status-panel">
+        <div>
+          <span class="label">현재 점수</span>
+          <div class="next-fruit">
+            <span id="status-score-value">0</span>
+          </div>
+        </div>
+        <div>
+          <span class="label">현재 과일</span>
+          <div class="next-fruit">
+            <span id="next-fruit-emoji" aria-hidden="true">🍒</span>
+            <span id="next-fruit-name">???</span>
+          </div>
+        </div>
+        <div>
+          <span class="label">다음 과일</span>
+          <div class="next-fruit ghost">
+            <span id="future-fruit-emoji" aria-hidden="true">🍓</span>
+            <span id="future-fruit-name">???</span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="canvas-wrapper"
+        aria-label="Suika playfield"
+      >
+        <canvas id="playfield" width="480" height="640"></canvas>
+        <div class="ceiling-line" aria-hidden="true"></div>
+      </section>
+
+      <section class="controls">
+        <div class="button-group">
+          <button class="primary-button" id="drop-button">
+            Space/Enter 로 떨어뜨리기
+          </button>
+          <button class="secondary-button" id="reset-button">새 게임</button>
+        </div>
+        <p class="hint-text">
+          화면을 탭/클릭하면 해당 위치로 조준 후 즉시 과일이 떨어집니다.
+        </p>
+      </section>
+
+      <section class="instructions">
+        <h2>게임 규칙</h2>
+        <ul>
+          <li>게임 화면을 클릭하거나 터치하면 그 위치로 과일이 바로 떨어집니다.</li>
+          <li>좌우 방향키로 미세 조준 후 Space/Enter를 눌러 투하할 수도 있습니다.</li>
+          <li>동일 과일이 부딪히면 한 단계 큰 과일로 합쳐지고 점수가 상승합니다.</li>
+          <li>{{ target_score }}점 달성 시 게임이 종료되고 결과 페이지에서 플래그가 공개됩니다.</li>
+          <li>과일이 한계선을 넘으면 실패!!</li>
+        </ul>
+      </section>
+    </main>
+
+    <form
+      id="game-result-form"
+      class="hidden"
+      method="post"
+      action="{% url 'game:result' %}"
+    >
+      {% csrf_token %}
+      <input type="hidden" id="score-field" name="score" value="0" />
+      <input type="hidden" id="result-status-field" name="status" value="failure" />
+      <input type="hidden" id="boost-field" name="score_boost" value="{{ score_boost }}" />
+    </form>
+
+    <script>
+      window.SuikaConfig = {
+        targetScore: {{ target_score }},
+        scoreBoost: {{ score_boost }},
+      };
+    </script>
+    <script src="{% static 'game/js/suika.js' %}"></script>
+  </body>
+</html>

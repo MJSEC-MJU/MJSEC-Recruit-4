@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MJSEC Recruit</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'game/css/suika.css' %}"
+    />
+  </head>
+  <body>
+    <main class="result-wrapper">
+      <h1>게임 종료</h1>
+      <p class="result-score">
+        이번 점수: <strong>{{ score }}</strong> / 목표 점수: {{ target_score }}
+      </p>
+      {% if revealed_flag %}
+      <div class="flag-banner">
+        {{ revealed_flag }}
+      </div>
+      {% else %}
+      <p>
+        과일을 계속 합쳐 <strong>{{ target_score }}</strong> 점을 노려보세요.
+      </p>
+      {% endif %}
+
+      <a
+        class="primary-button"
+        href="{% url 'game:index' %}?score_boost={{ score_boost }}"
+      >
+        다시 도전!
+      </a>
+    </main>
+  </body>
+</html>

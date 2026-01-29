@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MJSEC Recruit</title>
+    <link rel="stylesheet" href="{% static 'game/css/suika.css' %}" />
+  </head>
+  <body>
+    <main class="game-wrapper intro-wrapper">
+      <header class="game-header">
+        <div>
+          <h1>🍉MJSEC Recruit - Suika Challenge🍉</h1>
+          <p>
+            10000점 달성 시 신입부원 오픈채팅방 코드를 얻게됩니다!!
+          </p>
+        </div>
+      </header>
+
+      <section class="instructions">
+        <h2>난이도</h2>
+        <div class="boost-grid">
+          <a class="boost-button" href="{% url 'game:index' %}?score_boost=1">
+            Hard
+          </a>
+          <a class="boost-button" href="{% url 'game:index' %}?score_boost=2">
+            Normal
+          </a>
+          <a class="boost-button" href="{% url 'game:index' %}?score_boost=4">
+            Easy
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

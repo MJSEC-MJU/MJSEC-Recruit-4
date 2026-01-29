@@ -1,0 +1,21 @@
+# Environment / secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Django database
+db.sqlite3
+
+# Collected static files
+staticfiles/
+
+# VS Code / editors
+.vscode/
+.idea/
+
+# Misc
+*.log
