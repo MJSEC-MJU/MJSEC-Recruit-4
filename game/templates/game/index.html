@@ -86,10 +86,17 @@
       method="post"
       action="{% url 'game:result' %}"
     >
-      {% csrf_token %}
       <input type="hidden" id="score-field" name="score" value="0" />
       <input type="hidden" id="result-status-field" name="status" value="failure" />
       <input type="hidden" id="boost-field" name="score_boost" value="{{ score_boost }}" />
+    </form>
+    <form
+      id="game-reset-form"
+      class="hidden"
+      method="post"
+      action="{% url 'game:index' %}"
+    >
+      <input type="hidden" id="reset-boost-field" name="score_boost" value="{{ score_boost }}" />
     </form>
 
     <script>
