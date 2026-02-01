@@ -21,15 +21,18 @@
       <section class="instructions">
         <h2>난이도</h2>
         <div class="boost-grid">
-          <a class="boost-button" href="{% url 'game:index' %}?score_boost=1">
-            Hard
-          </a>
-          <a class="boost-button" href="{% url 'game:index' %}?score_boost=2">
-            Normal
-          </a>
-          <a class="boost-button" href="{% url 'game:index' %}?score_boost=4">
-            Easy
-          </a>
+          <form method="post" action="{% url 'game:index' %}">
+            <input type="hidden" name="score_boost" value="1" />
+            <button class="boost-button" type="submit">Hard</button>
+          </form>
+          <form method="post" action="{% url 'game:index' %}">
+            <input type="hidden" name="score_boost" value="2" />
+            <button class="boost-button" type="submit">Normal</button>
+          </form>
+          <form method="post" action="{% url 'game:index' %}">
+            <input type="hidden" name="score_boost" value="4" />
+            <button class="boost-button" type="submit">Easy</button>
+          </form>
         </div>
       </section>
     </main>

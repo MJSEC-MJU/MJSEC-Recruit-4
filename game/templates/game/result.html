@@ -26,12 +26,10 @@
       </p>
       {% endif %}
 
-      <a
-        class="primary-button"
-        href="{% url 'game:index' %}?score_boost={{ score_boost }}"
-      >
-        다시 도전!
-      </a>
+      <form method="post" action="{% url 'game:index' %}">
+        <input type="hidden" name="score_boost" value="{{ score_boost }}" />
+        <button class="primary-button" type="submit">다시 도전!</button>
+      </form>
     </main>
   </body>
 </html>

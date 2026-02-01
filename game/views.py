@@ -7,7 +7,6 @@ from pathlib import Path
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 TARGET_SCORE = 10_000
@@ -46,7 +45,7 @@ def home(request: HttpRequest) -> HttpResponse:
 
 def index(request: HttpRequest) -> HttpResponse:
     """Serve the interactive Suika game page."""
-    raw_boost = request.GET.get("score_boost", "1")
+    raw_boost = request.POST.get("score_boost", "1")
     try:
         score_boost = int(raw_boost)
     except (TypeError, ValueError):
@@ -66,13 +65,12 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def result(request: HttpRequest) -> HttpResponse:
     """Display the result page after a failed run."""
     raw_score = request.POST.get("score", "0")
     status = request.POST.get("status", "failure")
-    raw_boost = request.GET.get("score_boost") or request.POST.get("score_boost") or "1"
+    raw_boost = request.POST.get("score_boost", "1")
     try:
         boost_value = int(raw_boost)
     except (TypeError, ValueError):

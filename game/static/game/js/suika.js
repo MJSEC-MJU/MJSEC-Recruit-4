@@ -30,6 +30,8 @@
   const scoreField = document.getElementById("score-field");
   const resultStatusField = document.getElementById("result-status-field");
   const boostField = document.getElementById("boost-field");
+  const resetForm = document.getElementById("game-reset-form");
+  const resetBoostField = document.getElementById("reset-boost-field");
 
   const FRUITS = [
     { name: "체리", emoji: "🍒", radius: 32, color: "#fb7185" },
@@ -100,12 +102,14 @@
     });
 
   resetButton?.addEventListener("click", () => {
-    const params = new URLSearchParams(window.location.search);
-    const boost = params.get("score_boost") || String(scoreBoostRaw || 1);
-    const url = new URL(window.location.href);
-    url.pathname = "/play/";
-    url.search = boost ? `score_boost=${boost}` : "";
-    window.location.href = url.toString();
+    if (resetBoostField) {
+      resetBoostField.value = String(scoreBoostRaw || 1);
+    }
+    if (resetForm) {
+      resetForm.submit();
+      return;
+    }
+    window.location.href = "/play/";
   });
 
     window.addEventListener("keydown", (event) => {
